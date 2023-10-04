@@ -1,6 +1,14 @@
 <?php 
     include("database.php");
     
+    session_start();
+
+    $username = null;
+
+    // if the username variable in the session array is not null, then set the username variable declared above to the one in the session array
+    if(isset($_SESSION["username"])){
+        $username = $_SESSION["username"];
+    }
 ?> 
 
 <!DOCTYPE html>
@@ -11,9 +19,9 @@
         <title>Document</title>
     </head>
     <body>
-        <h1>Welcome</h1>
+        <h1>Welcome <?php echo $username; ?></h1>
         <a href="./login.php">Login</a>
-        <a href="./register.php">Register</a>
+        <a href="./register.php">Register</>
     </body>
 </html>
 
