@@ -9,6 +9,12 @@
     if(isset($_SESSION["username"])){
         $username = $_SESSION["username"];
     }
+
+    if(isset($_POST["logout"])){
+        session_destroy();
+        header("Location: ".$_SERVER["PHP_SELF"]);
+        exit;
+    }
 ?> 
 
 <!DOCTYPE html>
@@ -20,8 +26,25 @@
     </head>
     <body>
         <h1>Welcome <?php echo $username; ?></h1>
-        <a href="./login.php">Login</a>
-        <a href="./register.php">Register</>
+        <!-- conditionally render the login and register links if there is no username variable in the session -->
+        <?php 
+            if(empty($_SESSION["username"])){
+        ?>
+            <a href="./login.php">Login</a>
+            <a href="./register.php">Register</>
+        <?php
+            }
+        ?>   
+        <!-- conditionally render a logout button -->
+        <?php 
+            if(isset($_SESSION["username"])){
+        ?>
+            <form action="./index.php" method="post">
+                <input type="submit" name="logout" value="Logout">
+            </form>
+        <?php
+            }
+        ?>   
     </body>
 </html>
 
